@@ -20,4 +20,5 @@
 
 > :Collapse label=Members
 > 
-> [NN](/docs/members/nn)
+> [Nicolas](/docs/members/nn)
+> [Elsa](/docs/members/Elsa)
