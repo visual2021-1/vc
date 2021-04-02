@@ -20,5 +20,7 @@
 
 > :Collapse label=Members
 > 
-> [Nicolas](/docs/members/nn)
-> [Elsa](/docs/members/Elsa)
+> [Harold Nicolas Saavedra ](/docs/members/Nicolas)
+> [Elsa Johanna Arias M](/docs/members/Elsa)
+> [Fernando Morantes](/docs/members/Fernando)
+> [Johan Sebastian Salamanca G](/docs/members/Johan)
