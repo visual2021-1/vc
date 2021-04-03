@@ -2,120 +2,125 @@
   "init": [
     {
       "name": "initJssCs",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/transport/setup-jss.js",
-      "hash": "DNrj9oF72JDZmT5JpqB5MA=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/transport/setup-jss.js",
+      "hash": "rYnoI8oxTAO1Sc1ubtsCBg=="
     },
     {
       "name": "installTheme",
-      "filename": "/home/runner/work/vc/vc/.codedoc/content/theme.ts",
-      "hash": "Ee7uESb/QVRDo1Pq0BbGDA=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/content/theme.ts",
+      "hash": "X8N43kRKibELdjfN/QMhSg=="
     },
     {
       "name": "zoomOnFormula",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/formula/zoom-on-formula.js",
-      "hash": "ZPCLSgXUWhmVkgABPlENJQ=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/formula/zoom-on-formula.js",
+      "hash": "9M35MtS7z/Qe3IU6N0kiDQ=="
     },
     {
       "name": "codeSelection",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/code/selection.js",
-      "hash": "Se07MpPkDQ8HWTxIDftrEw=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/code/selection.js",
+      "hash": "7XaMm9kGy3kAE5FGwOkhcQ=="
     },
     {
       "name": "sameLineLengthInCodes",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/code/same-line-length.js",
-      "hash": "Map5ecEb4NVNv0/QD+ZE3A=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/code/same-line-length.js",
+      "hash": "XCRUOP3R4uHG20u3WuX86g=="
     },
     {
       "name": "initHintBox",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/code/line-hint/index.js",
-      "hash": "FngPUEsi8Zw/NNQWqR613A=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/code/line-hint/index.js",
+      "hash": "H9Q9uKF+MkiuCyjpSfRB2w=="
     },
     {
       "name": "initCodeLineRef",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/code/line-ref/index.js",
-      "hash": "BmgzQC6H5CrPYQAIFiZXFw=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/code/line-ref/index.js",
+      "hash": "BXyJGKNsZQCrs+550LLJ6A=="
     },
     {
       "name": "initSmartCopy",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/code/smart-copy.js",
-      "hash": "TDfbLrPMbnmKWpRdCyehTQ=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/code/smart-copy.js",
+      "hash": "vofSpDGKKczlpY52n0pkDA=="
     },
     {
       "name": "copyHeadings",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/heading/copy-headings.js",
-      "hash": "k7JN/wzVKW9o2/xVY1z7mw=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/heading/copy-headings.js",
+      "hash": "yFgrehTHfRCM0UV+kBrG6Q=="
     },
     {
       "name": "contentNavHighlight",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/page/contentnav/highlight.js",
-      "hash": "0BP9dHLr6GeJn74oCZhwCw=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/page/contentnav/highlight.js",
+      "hash": "y3Ty2PJDCdbrjLbjlnr5Lg=="
     },
     {
       "name": "loadDeferredIFrames",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/transport/deferred-iframe.js",
-      "hash": "yx/uXv3RO1y1ApqwGXbm3w=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/transport/deferred-iframe.js",
+      "hash": "6WG9hg4NZB+562eeFVDT9Q=="
     },
     {
       "name": "smoothLoading",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/transport/smooth-loading.js",
-      "hash": "TCtd2IQT4JYjFkK+kvKaEA=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/transport/smooth-loading.js",
+      "hash": "tdIDaI7dCmEr8hTsujS7CA=="
     },
     {
       "name": "tocHighlight",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/page/toc/toc-highlight.js",
-      "hash": "U6ApG3hMhLalqkO798gZmA=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/page/toc/toc-highlight.js",
+      "hash": "XoMA0TqaNSyhEmhbJ7KS4A=="
     },
     {
       "name": "postNavSearch",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/page/toc/search/post-nav/index.js",
-      "hash": "k4R0cRS/AtXkMn0JpedKNA=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/page/toc/search/post-nav/index.js",
+      "hash": "L+E6Gp6mPoFhXDNi0ZTWLA=="
     },
     {
       "name": "copyLineLinks",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/code/line-links/copy-line-link.js",
-      "hash": "KDIhTKYG7bQrTlUvgii/9Q=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/code/line-links/copy-line-link.js",
+      "hash": "Wr1LBwfjwKJedGBsrzcnvQ=="
     },
     {
       "name": "gatherFootnotes",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/footnote/gather-footnotes.js",
-      "hash": "jzB/Nwlt5ch6Cn9DnxQToQ=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/footnote/gather-footnotes.js",
+      "hash": "c2H+Cg0HCzeei9eVWyAduQ=="
+    },
+    {
+      "name": "reloadOnChange",
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/serve/reload.js",
+      "hash": "gtGcEtgAVUf9Zy0uaK2Oeg=="
     }
   ],
   "components": [
     {
       "name": "ToCPrevNext",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/page/toc/prevnext/index.js",
-      "hash": "7H5M9Vp+I8cVV99ELLvnzg=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/page/toc/prevnext/index.js",
+      "hash": "XVg/8ECgZgzqM5+uIUZZ0g=="
     },
     {
       "name": "CollapseControl",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/collapse/collapse-control.js",
-      "hash": "lqlJyab6eRMclBlk8Ftb8g=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/collapse/collapse-control.js",
+      "hash": "YIEX94b6r44viQxdGyjZMQ=="
     },
     {
       "name": "GithubSearch",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/misc/github/search.js",
-      "hash": "MChpnTvN8BpuKyiMGzmSYw=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/misc/github/search.js",
+      "hash": "TZ6dxNoB8ljQXkCTkMsgyg=="
     },
     {
       "name": "ToCToggle",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/page/toc/toggle/index.js",
-      "hash": "X5W7He+ge/Kg3B6xB+T5gg=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/page/toc/toggle/index.js",
+      "hash": "OU82HbfwfbDbTYSUvxQItQ=="
     },
     {
       "name": "DarkModeSwitch",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/components/darkmode/index.js",
-      "hash": "3ehN2Qj7wHC4donAKEDe0Q=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/components/darkmode/index.js",
+      "hash": "922xl5o03SMMAnHKJE5y3Q=="
     },
     {
       "name": "ConfigTransport",
-      "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/transport/config.js",
-      "hash": "bIAidu6MCPVPBcGGWLCR6Q=="
+      "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/transport/config.js",
+      "hash": "JzECnld0ph/riCq2Bxx5cw=="
     }
   ],
   "renderer": {
     "name": "getRenderer",
-    "filename": "/home/runner/work/vc/vc/.codedoc/node_modules/@codedoc/core/dist/es6/transport/renderer.js",
-    "hash": "gJnC4d3iIK+odX9RTZZEAA=="
+    "filename": "C:/Users/Elsa/Desktop/2021-I/Visual/vc/.codedoc/node_modules/@codedoc/core/dist/es5/transport/renderer.js",
+    "hash": "6tb6RZk5G2CszFyxOC2l/A=="
   }
 }
