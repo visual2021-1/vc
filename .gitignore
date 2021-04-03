@@ -1,6 +1,6 @@
 .codedoc/node_modules/
 .vscode/
-dist
+#dist
 #docs/assets/
 #*.html
 #docs/*.html
