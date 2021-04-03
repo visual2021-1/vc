@@ -1,25 +1,25 @@
 // Describe la estructura y los movimientos
-class Brick{
-	constructor(bc, y){
-	  this.brickColor = bc;
+class Ladrillo{
+	constructor(lc, y){
+	  this.ladrilloColor = lc;
 	  this.yPos = y;
 	  this.xPos = 0;
 	}
   
 	// Crea los ladrillos
-	createBrick(){
-	  fill(this.brickColor);
+	crearLadrillo(){
+	  fill(this.ladrilloColor);
 	  rect(this.xPos, this.yPos, 150, 50);
 	  noStroke() 
 	}
   
 	// Establece la velocidad de los ladrillos a 0.5
-	setSpeed(){
+	setVelocidad(){
 	  this.xSpeed = 0.8;
 	}
   
 	// Los ladrillos se mueven por el lienzo
-	moveBrick(){
+	moveLadrillo(){
 	  this.xPos+=this.xSpeed;
 	  if(this.xPos+100 >= width || this.xPos <= 0){
 		this.xSpeed*=-1;
@@ -32,12 +32,12 @@ class Brick{
   }
   
   // Se realiza la creacion de los ladrillos
-  let brick1 = new Brick("yellow",150);
-  let brick2 = new Brick("blue",350);
+  let ladrillo1 = new Ladrillo("yellow",150);
+  let ladrillo2 = new Ladrillo("blue",350);
   
   //
-  brick1.setSpeed();
-  brick2.setSpeed();
+  ladrillo1.setVelocidad();
+  ladrillo2.setVelocidad();
   
   function draw () {
 
@@ -48,10 +48,10 @@ class Brick{
 	if(!mouseIsPressed){
 		createBars();
 	  }
-	brick1.createBrick();
-	brick1.moveBrick();
-	brick2.createBrick();
-	brick2.moveBrick();
+	ladrillo1.crearLadrillo();
+	ladrillo1.moveLadrillo();
+	ladrillo2.crearLadrillo();
+	ladrillo2.moveLadrillo();
   }
   
   // Esta funcion creal las lineas blancas y negras
