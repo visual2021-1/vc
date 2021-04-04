@@ -12,7 +12,7 @@ var chars = ["@","M","B","H","E","N","R","#","K","W",
              ":","`",".", " "]; 
 
 function preload() {
-  img = loadImage('/vc/docs/sketches/assets/cat.png');
+  img = loadImage('/vc/docs/sketches/assets/cat.jpg');
 }
 
 function setup() {
