@@ -2,11 +2,24 @@
 
 > :Collapse label=Workshops
 > 
-> [Imaging & Video](/docs/workshops/imaging)
-> [Rendering](/docs/workshops/rendering)
-> [Algovis](/docs/workshops/algovis)
-> [Computer Graphics](/docs/workshops/cg)
-> [HCI](/docs/workshops/hci)
+> > :Collapse label=Imaging & Video
+> >
+> > [Exercise 1](/docs/workshops/imaging/excercise1)
+> > [Exercise 2](/docs/workshops/imaging/excercise2)
+> > [Exercise 3](/docs/workshops/imaging/excercise3)
+> > [Exercise 4](/docs/workshops/imaging/excercise4)
+>
+> > :Collapse label=Rendering
+> >
+>
+> > :Collapse label=Algovis
+> >
+>
+> > :Collapse label=Computer Graphics
+> >
+>
+> > :Collapse label=HCI
+> >
 
 > :Collapse label=P5 Code Snippets
 > 

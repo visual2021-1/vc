@@ -8,7 +8,7 @@
 
 ### Video
 
-> :P5 sketch=/docs/sketches/scripts/videoBNW.js width=720, height=560
+> :P5 sketch=/docs/sketches/scripts/videoBNW.js width=804, height=644
 
 
 ## Aplicación de algunas máscaras de convolución.
