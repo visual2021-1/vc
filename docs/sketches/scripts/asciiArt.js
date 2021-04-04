@@ -20,7 +20,7 @@ function setup() {
 }
 
 function draw() {
-  image(img, 0, height / 6, img.width /6, img.height / 6);
+  image(img, 0, height / 2, img.width /2, img.height / 2);
   
   if (frameCount % 200 === 0) {
     let scl = 7;
