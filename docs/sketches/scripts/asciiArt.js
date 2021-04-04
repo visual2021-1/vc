@@ -12,7 +12,7 @@ var chars = ["@","M","B","H","E","N","R","#","K","W",
              ":","`",".", " "]; 
 
 function preload() {
-  img = loadImage('/vc/docs/sketches/assets/unnamed.jpg');
+  img = loadImage('/vc/docs/sketches/assets/cat.png');
 }
 
 function setup() {
@@ -23,7 +23,7 @@ function draw() {
   image(img, 0, height / 6, img.width /6, img.height / 6);
   
   if (frameCount % 200 === 0) {
-    let scl = 8;
+    let scl = 7;
     quadrille = createQuadrille(20 * scl, img);
    
     for( let i =0; i < quadrille.height; i++)
