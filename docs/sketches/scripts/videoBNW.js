@@ -17,7 +17,6 @@ function preload() {
 
 function setup() {
     var myCanvas = createCanvas(widthI * 2 + 20, heightI);
-    //myCanvas.parent('maskGrayVideo'); 
 
     canvas_01 = createGraphics(widthI, heightI);
     canvas_02 = createGraphics(widthI, heightI);

@@ -4,7 +4,7 @@
 
 ### Imagen 
 
-> :P5 sketch=/docs/sketches/scripts/BNW.js width=720, height=560
+> :P5 sketch=/docs/sketches/scripts/BNW.js width=804, height=644
 
 ### Video
 
