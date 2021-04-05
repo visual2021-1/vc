@@ -28,13 +28,18 @@ Sin contribuciones destacables hasta el momento.
   <li>Actividades al aire libre</li>
 </ul>
 
-# P5 inline code
+# Ilusión visual 
+## Ilusión de Kanizsa
 
-Adapted from [here](https://p5js.org/examples/structure-recursion.html).
+El Triángulo de Kanizsa es una ilusión óptica descrita por primera vez por el psicólogo italiano Gaetano Kanizsa en 1955.1​ En la figura se percibe un triángulo equilátero blanco, pero de hecho no existe ninguno. Este efecto es conocido como contorno subjetivo o ilusorio. También, este triángulo blanco inexistente parece ser más brillante que el área circundante pero, de hecho, tiene el mismo brillo del fondo.
 
-> :P5 sketch=/docs/sketches/scripts/ilussionNicolas.js width=720, height=560
+![Triangulo](/docs/sketches/assets/triangulo.png)
 
 
 
+Este mismo efecto puede obtenerse con distintas formas geometricas como se muesta en la siguiente ilusion, adaptada de [Nazia Fakhruddin](https://medium.com/@naziafakhruddin/creating-illusions-in-p5-js-dynamic-kanizsa-illusion-part-4-af9fe72c5ec7)
+
+
+> :P5 sketch=/docs/sketches/scripts/ilussionJohan.js width=400, height=400
 
 > :ToCPrevNext
