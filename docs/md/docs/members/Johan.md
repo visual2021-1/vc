@@ -1,7 +1,7 @@
 # Johan Sebastian Salamanca Gonzalez
 
-<b>Correo:</b> <a href="mailto:jssalamancagm@unal.edu.co">ejariasm@unal.edu.co</a> <br>
-<b>Github:</b> <a href="https://github.com/ssalamancag">ejariasm</a><br>
+<b>Correo:</b> <a href="mailto:jssalamancagm@unal.edu.co">jssalamancag@unal.edu.co</a> <br>
+<b>Github:</b> <a href="https://github.com/ssalamancag">ssalamancag</a><br>
 
 ## Bio
 
