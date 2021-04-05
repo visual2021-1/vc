@@ -1,82 +1,62 @@
 
-let img, img2, img3, img4;
-
-function applyFilter() {
-	for (let y = 0; y < img2.height; y++) {
-		for (let x = 0; x < img2.width; x++) {
-			let index = (x + y * img2.width) * 4;
-			let r = img2.pixels[index + 0];
-			let g = img2.pixels[index + 1];
-			let b = img2.pixels[index + 2];
-
-			let bw = (r + g + b) / 3; // Promedio 
-
-			img2.pixels[index + 0] = bw;
-			img2.pixels[index + 1] = bw;
-			img2.pixels[index + 2] = bw;
-		}
-	}
-	img2.updatePixels();
-
-	for (let y = 0; y < img3.height; y++) {
-		for (let x = 0; x < img3.width; x++) {
-			let index = (x + y * img3.width) * 4;
-			let r = img3.pixels[index + 0];
-			let g = img3.pixels[index + 1];
-			let b = img3.pixels[index + 2];
-
-			let luma = r * .299 + g * .587 + b * .114; //SDTV
-
-			img3.pixels[index + 0] = luma;
-			img3.pixels[index + 1] = luma;
-			img3.pixels[index + 2] = luma;
-		}
-	}
-	img3.updatePixels();
-
-	for (let y = 0; y < img4.height; y++) {
-		for (let x = 0; x < img4.width; x++) {
-			let index = (x + y * img4.width) * 4;
-			let r = img4.pixels[index + 0];
-			let g = img4.pixels[index + 1];
-			let b = img4.pixels[index + 2];
-
-			let luma = r * .263 + g * .678 + b * .059; //UHDTV HDR
-			// luma = constrain(luma + value, 0, 255);
-
-			img4.pixels[index + 0] = luma;
-			img4.pixels[index + 1] = luma;
-			img4.pixels[index + 2] = luma;
-		}
-	}
-	img4.updatePixels();
-}
+let imagenOriginal, imagenPromedio, imagenLuma, imagenLuma2;
 
 function preload() {
-	img = loadImage('/vc/docs/sketches/assets/exampleImage.jpg');
-	img2 = loadImage('/vc/docs/sketches/assets/exampleImage.jpg');
-	img3 = loadImage('/vc/docs/sketches/assets/exampleImage.jpg');
-	img4 = loadImage('/vc/docs/sketches/assets/exampleImage.jpg');
-
-
+	imagenOriginal = loadImage('/vc/docs/sketches/assets/exampleImage.jpg');
+	imagenPromedio = createImage(402, 322);
+	imagenLuma = createImage(402, 322);
+	imagenLuma2 = createImage(402, 322);
 }
 
 function setup() {
 	createCanvas(804, 644);
-	img.resize(402, 322);
-	img2.resize(402, 322);
-	img3.resize(402, 322);
-	img4.resize(402, 322);
-
-	img.loadPixels();
-	img2.loadPixels();
-	img3.loadPixels();
-	img4.loadPixels();
+	imagenOriginal.resize(402, 322);
 }
 
-
 function draw() {
-	applyFilter();
+
+	imagenOriginal.loadPixels();
+	imagenPromedio.loadPixels();
+	imagenLuma.loadPixels();
+	imagenLuma2.loadPixels();
+
+	for (let y = 0; y < imagenOriginal.height; y++) {
+		for (let x = 0; x < imagenOriginal.width; x++) {
+
+			let index = (x + y * imagenOriginal.width) * 4;
+
+			let r = imagenOriginal.pixels[index + 0];
+			let g = imagenOriginal.pixels[index + 1];
+			let b = imagenOriginal.pixels[index + 2];
+
+			let bw = (r + g + b) / 3; // Promedio 
+
+			imagenPromedio.pixels[index + 0] = bw;
+			imagenPromedio.pixels[index + 1] = bw;
+			imagenPromedio.pixels[index + 2] = bw;
+			imagenPromedio.pixels[index + 3] = 255;
+
+
+			let luma = r * .299 + g * .587 + b * .114; //SDTV
+
+			imagenLuma.pixels[index + 0] = luma;
+			imagenLuma.pixels[index + 1] = luma;
+			imagenLuma.pixels[index + 2] = luma;
+			imagenLuma.pixels[index + 3] = 255;
+
+
+			let luma2 = r * .263 + g * .678 + b * .059; //UHDTV HDR
+
+			imagenLuma2.pixels[index + 0] = luma2;
+			imagenLuma2.pixels[index + 1] = luma2;
+			imagenLuma2.pixels[index + 2] = luma2;
+			imagenLuma2.pixels[index + 3] = 255;
+
+		}
+	}
+	imagenPromedio.updatePixels();
+	imagenLuma.updatePixels();
+	imagenLuma2.updatePixels();
 
 	textSize(10);
 	stroke(0);
@@ -84,12 +64,12 @@ function draw() {
 	textStyle(BOLDITALIC);
 
 
-	image(img, 0, 0);
+	image(imagenOriginal, 0, 0);
 	text('IMAGEN ORIGINAL', 20, 20);
-	image(img2, img.width, 0);
-	text('PROMEDIO RGB', img.width + 20, 20);
-	image(img3, 0, img.height);
-	text('LUMA (SDTV)', 20, img.height + 20);
-	image(img4, img.width, img.height);
-	text('LUMA (UHDTV)', img.width + 20, img.height + 20);
+	image(imagenPromedio, imagenOriginal.width, 0);
+	text('PROMEDIO RGB', imagenOriginal.width + 20, 20);
+	image(imagenLuma, 0, imagenOriginal.height);
+	text('LUMA (SDTV)', 20, imagenOriginal.height + 20);
+	image(imagenLuma2, imagenOriginal.width, imagenOriginal.height);
+	text('LUMA (UHDTV)', imagenOriginal.width + 20, imagenOriginal.height + 20);
 }

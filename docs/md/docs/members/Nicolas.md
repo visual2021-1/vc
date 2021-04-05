@@ -55,7 +55,7 @@ Para apreciar la ilusión correctamente podemos aplicar los siguientes comandos 
 
 Código de la ilusión anterior 
 
-```md
+```js
 // Definimos variables 
 let exteriorColor = 255;
 let radio = 40;
