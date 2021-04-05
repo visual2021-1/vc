@@ -68,7 +68,7 @@ let brightImages = new Array(256);
 let bigPicture;
 let brightnessValues = [];
 let scl = 5;
-let sel;
+let sel; 
 let imagesMainPath = "/vc/docs/sketches/assets/image_mosaic/";
 
 function preload() {
