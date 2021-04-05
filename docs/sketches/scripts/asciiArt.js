@@ -20,7 +20,7 @@ function draw() {
   image(img, 0, height / 2, img.width /2, img.height / 2);
   
   if (frameCount % 200 === 0) {
-    let scl = 7;
+    let scl = 5;
     quadrille = createQuadrille(20 * scl, img);
    
     for( let i =0; i < quadrille.height; i++)
