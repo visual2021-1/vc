@@ -153,7 +153,7 @@ En donde se convierte usando la media aritmética la imagen a escala de grises, 
 El codigo completo se ve representado de la siguiente manera<br>
 
 ```md
-  var quadrille;
+var quadrille;
 var img;
 var chars = ["$", "@", "B", "%", "8", "&", "W", "M", "#", "*", 
              "o", "a", "h", "k", "b", "d", "p", "q", "w","m",
@@ -175,7 +175,7 @@ function draw() {
   image(img, 0, height / 2, img.width /2, img.height / 2);
   
   if (frameCount % 200 === 0) {
-    let scl = 7;
+    let scl = 5;
     quadrille = createQuadrille(20 * scl, img);
    
     for( let i =0; i < quadrille.height; i++)
@@ -187,10 +187,6 @@ function draw() {
       }
     }
     drawQuadrille(quadrille, 0, 0, 40 / scl, 1.6 / scl, color(255));
-    const start = new Date().getTime();
-    let elapsed = new Date().getTime() - start;
-    console.log("Elapsed time " + elapsed);
-
   }
 }
 ```
