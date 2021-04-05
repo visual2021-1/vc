@@ -54,7 +54,7 @@ La diferencia entre la ilusión rejilla Hermann y la ilusión de centelleo es qu
 
 Código de la ilusión anterior 
 
-```md
+```js
 let radio = 10;
 let ancho = 10;
 let gris = 150;
