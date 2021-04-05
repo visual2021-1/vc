@@ -1,15 +1,12 @@
 var quadrille;
 var img;
-var chars = ["@","M","B","H","E","N","R","#","K","W",
-             "X","D","F","P","Q","A","S","U","Z","b",
-             "d","e","h","x","*","8","G","m","&","0",
-             "4","L","O","V","Y","k","p","q","5","T",
-             "a","g","n","s","6","9","o","w","z","$",
-             "C","I","u","2","3","J","c","f","r","y",
-             "%","1","v","7","l","+","i","t","[","]",
-             "{","}","?","j","|","(",")","=","~","!",
-             "-","/","<",">","\"","'","^","_",";",",",
-             ":","`",".", " "]; 
+var chars = ["$", "@", "B", "%", "8", "&", "W", "M", "#", "*", 
+             "o", "a", "h", "k", "b", "d", "p", "q", "w","m",
+             "Z", "O", "0", "Q", "L", "C", "J", "U", "Y", "X", 
+             "z", "c", "v", "u", "n", "x", "r", "j", "f", "t", 
+             "/", "|", "(", ")", "1", "{", "}", "[", "]", "?",
+             "-", "_", "+", "~", "<", ">", "i", "!", "l", "I", 
+             ";", ":", ",", "^", "`", "'", "." ];
 
 function preload() {
   img = loadImage('/vc/docs/sketches/assets/cat.jpg');
@@ -23,14 +20,14 @@ function draw() {
   image(img, 0, height / 2, img.width /2, img.height / 2);
   
   if (frameCount % 200 === 0) {
-    let scl = 7;
+    let scl = 5;
     quadrille = createQuadrille(20 * scl, img);
    
     for( let i =0; i < quadrille.height; i++)
     {
       for( let j =0; j < quadrille.width; j++){
         let value = (quadrille.read(i, j)[0] + quadrille.read(i, j)[1] + quadrille.read(i, j)[2]) / 3;
-        value = Math.floor(value / 3);    
+        value = Math.floor(value / 4);    
         quadrille.fill(i, j, chars[value]);
       }
     }
