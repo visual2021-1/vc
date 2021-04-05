@@ -262,6 +262,16 @@ Se presentan los resultados obtenidos, para visualizarlos por favor dar click en
 </ul>
  
 Se espera continuar con la investigación aplicando distintos algoritmos y evaluando los resultados obtenidos.
+
+<b>Bibliografia</b>
+<blockquote>
+<ul>
+   <li>Wikipedia. (23 de Marzo de 2021). Wikipedia. Obtenido de HSL and HSV: https://en.wikipedia.org/wiki/HSL_and_HSV#Disadvantages</li>
+  <li>Wikipedia. (16 de Septiembre de 2020). Wikipedia. Obtenido de Luma (video): https://en.wikipedia.org/wiki/Luma_(video)</li>
+<li>Developer Mozilla. (11 de Marzo de 2021). MDN Web Docs. Obtenido de Digital video concepts: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_concepts</li>
+
+</ul>
+</blockquote>
  
 > :ToCPrevNext
  

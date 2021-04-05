@@ -155,7 +155,7 @@ La ilusión de Ebbinghaus ha jugado un papel crucial en el reciente debate sobre
   <li>Roberts B, Harris MG, Yates TA. (2005). The roles of inducer size and distance in the Ebbinghaus illusion (Titchener circles). </li>
   <li>V. H. Franz, F. Scharnowski and K. R. Gegenfurtner (2005). "Illusion Effects on Grasping Are Temporally Constant Not Dynamic".  </li>
    <li>Wikipedia. (2 de Abril de 2021). Wikipedia. Obtenido de Delboeuf illusion: https://en.wikipedia.org/wiki/Delboeuf_illusion</li>
-  <li>Wikipedia. (10 de Enero de 2021). Wikipedia. Obtenido de Ebbinghaus illusion: https://https://en.wikipedia.org/wiki/Ebbinghaus_illusion</li>
+  <li>Wikipedia. (10 de Enero de 2021). Wikipedia. Obtenido de Ebbinghaus illusion: https://en.wikipedia.org/wiki/Ebbinghaus_illusion</li>
 </ul>
 </blockquote>
 
