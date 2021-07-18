@@ -11,9 +11,10 @@
 >
 > > :Collapse label=Rendering
 > >
+> > [Light attenuation](/docs/workshops/Rendering/LightAttenuation)
 >
 > > :Collapse label=Algovis
-> >
+> > 
 >
 > > :Collapse label=Computer Graphics
 > >

@@ -1,0 +1,1 @@
+> :P5 sketch=/docs/sketches/scripts/light.js width=720, height=580
