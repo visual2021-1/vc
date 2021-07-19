@@ -11,7 +11,7 @@
 >
 > > :Collapse label=Rendering
 > >
-> > [Light attenuation](/docs/workshops/Rendering/LightAttenuation)
+> > [Atenuación de luz](/docs/workshops/Rendering/LightAttenuation)
 >
 > > :Collapse label=Algovis
 > > 
