@@ -1,4 +1,4 @@
-# LIGHT ATTENUATION
+# Atenuación de luz
 
 Una de las propiedades básicas de la luz es que pierde su intensidad cuanto más se aleja de su fuente, esto se conoce como atenuación de Luz.
 Este es el caso por el cual la temperatura en la Tierra es menor que la de Venus y Mercurio pero mayor que la de Marte. La intensidad de la luz del sol cambia en proporción a la distancia del sol. <br>
