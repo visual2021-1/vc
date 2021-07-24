@@ -41,6 +41,23 @@ let kernel_blur = [
   [ 1/9, 1/9, 1/9 ]
 ];
 
+let maxFr=0;
+let frames=0;
+let i =0;
+
+
+function getMaxFrameRate(f){
+  frames+=f;
+  maxFr=maxFr<f?f:maxFr;
+  i+=1;
+  if(i%100==0){
+    console.log("max"+maxFr);
+    console.log("avg:"+frames/i);
+    i=0;
+    frames=0;
+  }
+}
+
 function preload() {
     img_01 = createVideo("/vc/docs/sketches/assets/oso.mp4");
     img_02 = createVideo("/vc/docs/sketches/assets/oso.mp4");
@@ -70,6 +87,9 @@ function draw() {
     // drawCanvas_02();
 
     // setTimeout(startAnimation(), 4000);
+
+    let f=frameRate()
+    getMaxFrameRate(f)
 
     drawAllCanvas();
 
