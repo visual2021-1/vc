@@ -4,10 +4,17 @@
 > 
 > > :Collapse label=Imaging & Video
 > >
-> > [Exercise 1](/docs/workshops/imaging/excercise1)
-> > [Exercise 2](/docs/workshops/imaging/excercise2)
-> > [Exercise 3](/docs/workshops/imaging/excercise3)
-> > [Exercise 4](/docs/workshops/imaging/excercise4)
+> > > :Collapse label=Software
+> > >
+> > >[Exercise 1](/docs/workshops/imaging/excercise1)
+> > >[Exercise 2](/docs/workshops/imaging/excercise2)
+> > >[Exercise 3](/docs/workshops/imaging/excercise3)
+> > >[Exercise 4](/docs/workshops/imaging/excercise4)
+> >
+> > > :Collapse label=Hardware
+> > >
+> > >[Exercise 2](/docs/workshops/imaging/hardware/excercise2)
+> > >
 >
 > > :Collapse label=Rendering
 > >
