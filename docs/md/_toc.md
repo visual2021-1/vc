@@ -13,6 +13,7 @@
 > >
 > > > :Collapse label=Hardware
 > > >
+> > >[Exercise 1](/docs/workshops/imaging/hardware/excercise1)
 > > >[Exercise 2](/docs/workshops/imaging/hardware/excercise2)
 > > >
 >
