@@ -6,14 +6,15 @@
 > >
 > > > :Collapse label=Software
 > > >
-> > >[Exercise 1](/docs/workshops/imaging/excercise1)
-> > >[Exercise 2](/docs/workshops/imaging/excercise2)
-> > >[Exercise 3](/docs/workshops/imaging/excercise3)
-> > >[Exercise 4](/docs/workshops/imaging/excercise4)
+> > >[Ejercicio 1](/docs/workshops/imaging/excercise1)
+> > >[Ejercicio 2](/docs/workshops/imaging/excercise2)
+> > >[Ejercicio 3](/docs/workshops/imaging/excercise3)
+> > >[Ejercicio 4](/docs/workshops/imaging/excercise4)
 > >
 > > > :Collapse label=Hardware
 > > >
-> > >[Exercise 2](/docs/workshops/imaging/hardware/excercise2)
+> > >[Ejercicio 2](/docs/workshops/imaging/hardware/excercise2)
+> > >[Ejercicio 4](/docs/workshops/imaging/hardware/excercise4)
 > > >
 >
 > > :Collapse label=Rendering
