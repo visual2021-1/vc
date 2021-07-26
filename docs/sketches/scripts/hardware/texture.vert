@@ -3,7 +3,6 @@
 
 attribute vec3 aPosition;
 attribute vec2 aTexCoord;
-
 // lets get texcoords just for fun! 
 varying vec2 vTexCoord;
 

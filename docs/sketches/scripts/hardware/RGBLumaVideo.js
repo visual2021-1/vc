@@ -1,43 +1,68 @@
+let theShaderVideo;
+let shaderVideo;
+let video;
 
-// this variable will hold our shader object
-let theShader;
-// this variable will hold our webcam video
-let cam;
 let gray = 0;
-function preload() {
-    // load the shader
-    theShader = loadShader('/vc/docs/sketches/workshop2/webcam.vert', '/vc/docs/sketches/workshop2/webcam.frag');
+
+function preload(){
+    // cargamos video y shader
+  video = createVideo(['/vc/docs/sketches/assets/sample.mp4']);
+  video.hide();
+
+  theShaderVideo = loadShader('/vc/docs/sketches/scripts/hardware/texture.vert','/vc/docs/sketches/scripts/hardware/texture.frag');  
 }
 
 function setup() {
-    // shaders require WEBGL mode to work
-    createCanvas(710, 400, WEBGL);
-    noStroke();
-    //Crea una aptura de video instantanea 
-    cam = createCapture(VIDEO);
-    cam.size(710, 400);
-    //Esconde la captura para solo mostrar el renderizado final
-    cam.hide();
+  pixelDensity(1);
+  createCanvas(windowWidth, 400, WEBGL);
+  noStroke();
+
+  // inicializar la capa del createGraphics y Quitar bordes
+  shaderVideo = createGraphics(windowWidth, windowHeight, WEBGL);
+  shaderVideo.noStroke();  
+  
+  video.volume(0);
 }
 
 function draw() {
-    // shader() sets the active shader with our shader
-    shader(theShader);
+  shaderVideo.shader(theShaderVideo);
 
-    // passing cam as a texture
-    theShader.setUniform('tex0', cam);
-    theShader.setUniform("u_key", gray);
+  //Se defomem valores uniformes para el fragment shader
 
-    // rect gives us some geometry on the screen
-    rect(0, 0, width, height);
+  theShaderVideo.setUniform('u_img', video);
+  theShaderVideo.setUniform('u_key', gray);
+  
+  // Se Renderiza el shader
+  shaderVideo.rect(0,0,width,height);
+
+  background(0);
+
+  //Se pasa el shader del video como textura
+  push();
+  texture(shaderVideo);
+  translate(0, 0, -100);
+  plane(width,height);
+  pop();  
 }
-// Se ejecuta cuando se presiona cualquier tecla
+
+// declaramos los eventos 
 function keyPressed() {
-    if (key === '0') {
-        gray = 0;
-    } else if (key === '1') {
-        gray = 1;
-    } else if (key === '2') {
-        gray = 2;
-    }
+	if (key === '4') {
+	gray = 0;
+	} else if (key === '1') { 
+	gray = 1;
+	} else if (key === '2') {
+	gray = 2;
+	} else if (key === '3') {
+	gray = 3;
+	} 
+}
+
+function windowResized(){
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+function mousePressed() {
+   video.loop();
+   
 }

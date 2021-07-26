@@ -1,6 +1,4 @@
  
-<script src="/docs/sketches/scripts/p5.min.js" /></script>
-
 # Conversión a escala de grises.
  
 ## Problem statement
@@ -55,12 +53,12 @@ En los formatos digitales que siguen el estándar CCIR_601 que sería equivalent
 >  Y'=0,299 * R + 0,587 * G + 0,114 * B.
 > ```
  
-Adicionalmente se incluyó la conversión usada por los sistemas UHDTV y HDR modernos que corresponde a:
+Adicionalmente se incluyó una conversión usada en multiples aplicaciones, corresponde al componente mas grande entre los canales :
  
 > :Formula align=center
 >
 > ```
->  Y'=0,2627 * R + 0,6780 * G + 0,0593 * B.
+>  Y'=max(R,G,B) = M.
 > ```
  
  
@@ -68,22 +66,387 @@ Adicionalmente se incluyó la conversión usada por los sistemas UHDTV y HDR mod
  
 ### Escala de grises en imágenes
  
-Para lograr la conversión de las imágenes a escala de grises (promedio RGB, Luma) basta con acceder al componente RGB de cada pixel de la imagen, posteriormente realizar el cálculo ya sea del promedio o del coeficiente Luma (fórmulas expuestas anteriormente) para finalmente crear nuevas imágenes que contendrán el valor obtenido en cada uno de los canales del pixel. De esta manera se obtendrán los resultados mostrados continuos al código fuente de la solución.
- 
-### Codigo
- 
-Se presenta el código fuente:
+Para lograr la conversión de las imágenes a escala de grises (promedio RGB, Luma) en esta ocasión se trabajara con WebGL, la idea será mostrar en el canvas un cubo en 3D con la imagen a la que se le hará la transformación posicionada en cada una de sus caras y con la ayuda del Fragment Shader se realizaran dichas transformaciones dependiendo de la entrada que suministre el usuario.
+
+Podremos observar cada uno de los filtros mencionados al dar click sobre el canvas y oprimir una de las teclas mencionadas a continuación:
+
+
+
+| Tecla |         Resultado         |
+|:-----:|:-------------------------:|
+|   1   |       Promedio RGB        |      
+|   2   |     Componente más grande |
+|   3   |       Luma (SDTV)         |
+|   4   |      Imagen Original      |
  
 
- 
 ### Resultados
  
 Se presentan los resultados obtenidos:
  
-> :P5 sketch=/docs/sketches/scripts/hardware/RGBLumaImagen.js width=1000, height=410
+> :Tabs
+> > :Tab title= Imagen RGB y Luma
+> > 
+> > > :P5 sketch=/docs/sketches/scripts/hardware/RGBLumaImagen.js, width=1000, height=410
+>
+> > :Tab title= C&oacute;digo p5
+> >
+> > ```js | RGBImagen.js
+> >   let imgShader;
+> >   let shaderTexture;
+> >   let img;
+> >
+> >   let angle=0;
+> >   let gray = 0;
+> >
+> >   function preload(){
+> >      // cargamos imagen y shader
+> >   img = loadImage('/vc/docs/sketches/assets/exampleImage.jpg');
+> >   imgShader = loadShader('/vc/docs/sketches/scripts/hardware/texture.vert','/vc/docs/sketches/scripts/hardware/texture.frag');
+> >   }
+> >
+> >   function setup() {
+> >
+> >   pixelDensity(1);
+> >   createCanvas(windowWidth, 400, WEBGL);
+> >   noStroke();
+> >
+> >   // inicializar la capa del createGraphics y Quitar bordes 
+> >   shaderTexture = createGraphics(512, 512, WEBGL);
+> >   shaderTexture.noStroke();
+> >   }
+> >
+> >   function draw() {
+> >   shaderTexture.shader(imgShader);
+> >
+> >   //Se defomem valores uniformes para el fragment shader
+> >   imgShader.setUniform("u_img", img);
+> >   imgShader.setUniform("u_key", gray);
+> >
+> >   
+> >   // Se Renderiza el shader
+> >   shaderTexture.rect(0,0,width,height);
+> >
+> >   background(0);
+> >
+> >   // Efecto de bombilla 
+> >   pointLight(255, 255, 255, 0, 0, 500);
+> >   let dx= mouseX-width/2;
+> >   let dy= mouseY-height/2;
+> >   pointLight(100,250,255,dx,dy,100);
+> >
+> >   translate(0, 0, 0);
+> >   
+> >   push();
+> >   //Se pasa el shader de la imagen como textura
+> >   texture(shaderTexture);
+> >   translate(0, 0, 0);
+> >   rotateZ(angle);
+> >   rotateX(angle);
+> >   rotateY(angle*2); 
+> >   box(200);
+> >   pop();
+> >   
+> >   // Rotacion de la caja
+> >   angle += 0.001;
+> >   
+> >   
+> >   }
+> >
+> >   // declaramos los eventos 
+> >
+> >   function keyPressed() {
+> >      if (key === '4') {
+> >      gray = 0;
+> >      } else if (key === '1') { 
+> >      gray = 1;
+> >      } else if (key === '2') {
+> >      gray = 2;
+> >      } else if (key === '3') {
+> >      gray = 3;
+> >      } 
+> >   }
+> >
+> >   function windowResized(){
+> >   residzeCanvas(windowWidth, windowHeight);
+> >   }
+>
+> > :Tab title= C&oacute;digo Fragment
+> >
+> > ```glsl | texture.frag
+> >   #ifdef GL_ES
+> >   precision mediump float;
+> >   #endif
+> >   
+> >   varying vec2 vTexCoord;
+> >   uniform sampler2D u_img;
+> >   uniform int u_key;
+> >
+> >   float grayscale(vec3 color) {
+> >   float lightness;
+> >   
+> >   if (u_key==1){
+> >         float I=(color.r + color.g + color.b) / 3.0; // Promedio RGB
+> >         lightness = I;
+> >      } else if (u_key==2){
+> >         float V= max(max(color.r,color.g),color.b);  // Componente mayot
+> >         lightness = V;
+> >      } else if (u_key==3){ // Luma
+> >         float Y= dot(color, vec3(0.299, 0.587, 0.114)); // SDTV
+> >         lightness = Y;
+> >      }
+> >   return lightness;
+> >   }
+> >
+> >   void main() {
+> >   vec2 uv = vTexCoord;
+> >
+> >   uv.y = 1.0 - uv.y;
+> >   vec4 tex = texture2D(u_img, uv);
+> >   float gray =grayscale(tex.rgb);
+> >   
+> >   float threshR = gray ;
+> >   float threshG = gray ;
+> >   float threshB = gray ;
+> >   
+> >   if (u_key==0){
+> >      threshR = tex.r ;
+> >      threshG = tex.g ;
+> >      threshB = tex.b ;
+> >   }
+> >   vec3 thresh = vec3(threshR, threshG, threshB);
+> >   gl_FragColor = vec4(thresh, 1.0);
+> >   }
+>
+> > :Tab title= C&oacute;digo Vertex
+> >
+> > ```glsl | texture.vert
+> >   // vert file and comments from adam ferriss
+> >   // https://github.com/aferriss/p5jsShaderExamples
+> >   
+> >   attribute vec3 aPosition;
+> >   attribute vec2 aTexCoord;
+> >   // lets get texcoords just for fun! 
+> >   varying vec2 vTexCoord;
+> >   
+> >   void main() {
+> >   
+> >     // copy the texcoords
+> >     vTexCoord = aTexCoord;
+> >     // copy the position data into a vec4, using 1.0 as the w component
+> >     vec4 positionVec4 = vec4(aPosition, 1.0);
+> >   
+> >     // scale the rect by two, and move it to the center of the screen
+> >     // if we don't do this, it will appear with its bottom left corner in the center of the sketch
+> >     // try commenting this line out to see what happens
+> >     positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
+> >   
+> >     // send the vertex information on to the fragment shader
+> >     gl_Position = positionVec4;
+> >   }
+>
  
+### Escala de grises en Videos
+ 
+Para el caso de conversión a escala de grises en videos podemos pensar que será bastante similar al procedimiento aplicado anteriormente en imágenes y es totalmente acertado, con la diferencia de que en este caso lo mostraremos en una superficie 2Dy que debemos tener la consideración de obtener la información del video con los métodos correspondientes de P5, como lo veremos a continuación en la pestaña de código.
 
+Podremos observar cada uno de los filtros mencionados al dar click sobre el canvas y oprimir una de las teclas mencionadas a continuación:
+
+
+| Tecla |         Resultado         |
+|:-----:|:-------------------------:|
+|   1   |       Promedio RGB        |      
+|   2   |     Componente más grande |
+|   3   |       Luma (SDTV)         |
+|   4   |      Imagen Original      |
+
+### Resultados
+ 
+Se presentan los resultados obtenidos, para visualizarlos por favor dar click en el canvas:
+ 
+ 
+> :Tabs
+> > :Tab title= Video RGB y Luma
+> > 
+> > > :P5 sketch=/docs/sketches/scripts/hardware/RGBLumaVideo.js, width=1000, height=410
+>
+> > :Tab title= C&oacute;digo p5
+> >
+> > ```js | RGBVideo.js
+> >   let theShaderVideo;
+> >   let shaderVideo;
+> >   let video;
+> >
+> >   let gray = 0;
+> >
+> >   function preload(){
+> >      // cargamos video y shader
+> >   video = createVideo(['/vc/docs/sketches/assets/sample.mp4']);
+> >   video.hide();
+> >
+> >   theShaderVideo = loadShader('/vc/docs/sketches/scripts/hardware/texture.vert','/vc/docs/sketches/scripts/hardware/texture.frag');  
+> >   }
+> >
+> >   function setup() {
+> >   pixelDensity(1);
+> >   createCanvas(windowWidth, 400, WEBGL);
+> >   noStroke();
+> >
+> >   // inicializar la capa del createGraphics y Quitar bordes
+> >   shaderVideo = createGraphics(windowWidth, windowHeight, WEBGL);
+> >   shaderVideo.noStroke();  
+> >   
+> >   video.volume(0);
+> >   }
+> >
+> >   function draw() {
+> >   shaderVideo.shader(theShaderVideo);
+> >
+> >   //Se defomem valores uniformes para el fragment shader
+> >
+> >   theShaderVideo.setUniform('u_img', video);
+> >   theShaderVideo.setUniform('u_key', gray);
+> >   
+> >   // Se Renderiza el shader
+> >   shaderVideo.rect(0,0,width,height);
+> >
+> >   background(0);
+> >
+> >   //Se pasa el shader del video como textura
+> >   push();
+> >   texture(shaderVideo);
+> >   translate(0, 0, -100);
+> >   plane(width,height);
+> >   pop();  
+> >   }
+> >
+> >   // declaramos los eventos 
+> >   function keyPressed() {
+> >      if (key === '4') {
+> >      gray = 0;
+> >      } else if (key === '1') { 
+> >      gray = 1;
+> >      } else if (key === '2') {
+> >      gray = 2;
+> >      } else if (key === '3') {
+> >      gray = 3;
+> >      } 
+> >   }
+> >
+> >   function windowResized(){
+> >   resizeCanvas(windowWidth, windowHeight);
+> >   }
+> >
+> >   function mousePressed() {
+> >      video.loop();
+> >      
+> >   }
+>
+> > :Tab title= C&oacute;digo Fragment
+> >
+> > ```glsl | texture.frag
+> >   #ifdef GL_ES
+> >   precision mediump float;
+> >   #endif
+> >   
+> >   varying vec2 vTexCoord;
+> >   uniform sampler2D u_img;
+> >   uniform int u_key;
+> >
+> >   float grayscale(vec3 color) {
+> >   float lightness;
+> >   
+> >   if (u_key==1){
+> >         float I=(color.r + color.g + color.b) / 3.0; // Promedio RGB
+> >         lightness = I;
+> >      } else if (u_key==2){
+> >         float V= max(max(color.r,color.g),color.b);  // Componente mayot
+> >         lightness = V;
+> >      } else if (u_key==3){ // Luma
+> >         float Y= dot(color, vec3(0.299, 0.587, 0.114)); // SDTV
+> >         lightness = Y;
+> >      }
+> >   return lightness;
+> >   }
+> >
+> >   void main() {
+> >   vec2 uv = vTexCoord;
+> >
+> >   uv.y = 1.0 - uv.y;
+> >   vec4 tex = texture2D(u_img, uv);
+> >   float gray =grayscale(tex.rgb);
+> >   
+> >   float threshR = gray ;
+> >   float threshG = gray ;
+> >   float threshB = gray ;
+> >   
+> >   if (u_key==0){
+> >      threshR = tex.r ;
+> >      threshG = tex.g ;
+> >      threshB = tex.b ;
+> >   }
+> >   vec3 thresh = vec3(threshR, threshG, threshB);
+> >   gl_FragColor = vec4(thresh, 1.0);
+> >   }
+>
+> > :Tab title= C&oacute;digo Vertex
+> >
+> > ```glsl | texture.vert
+> >   // vert file and comments from adam ferriss
+> >   // https://github.com/aferriss/p5jsShaderExamples
+> >   
+> >   attribute vec3 aPosition;
+> >   attribute vec2 aTexCoord;
+> >   // lets get texcoords just for fun! 
+> >   varying vec2 vTexCoord;
+> >   
+> >   void main() {
+> >   
+> >     // copy the texcoords
+> >     vTexCoord = aTexCoord;
+> >     // copy the position data into a vec4, using 1.0 as the w component
+> >     vec4 positionVec4 = vec4(aPosition, 1.0);
+> >   
+> >     // scale the rect by two, and move it to the center of the screen
+> >     // if we don't do this, it will appear with its bottom left corner in the center of the sketch
+> >     // try commenting this line out to see what happens
+> >     positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
+> >   
+> >     // send the vertex information on to the fragment shader
+> >     gl_Position = positionVec4;
+> >   }
+>
+ 
+## Conclusions & future work
+<ul>
+ <li>Es necesario explorar otros métodos e implementaciones para mejorar los resultados presentados. </li>
+ <li> Es importante considerar el costo computacional de métodos como Luma, especialmente al aplicarlo en videos de larga duración </li>
+ 
+</ul>
+ 
+Se espera continuar con la investigación aplicando distintos algoritmos y evaluando los resultados obtenidos.
+
+<b>Bibliografia</b>
+<blockquote>
+<ul>
+   <li>Wikipedia. Obtenido de HSL and HSV: https://en.wikipedia.org/wiki/HSL_and_HSV#Disadvantages</li>
+  <li> Wikipedia. Obtenido de Luma (video): https://en.wikipedia.org/wiki/Luma_(video)</li>
+   <li>Processing. Shaders: https://processing.org/tutorials/pshader/</li>
+   <li>Welcome to p5.js shaders: https://itp-xstory.github.io/p5js-shaders/#/</li>
+
+
+</ul>
+</blockquote>
  
 > :ToCPrevNext
+ 
+
+
+ 
+
+
+
+
+
  
 
