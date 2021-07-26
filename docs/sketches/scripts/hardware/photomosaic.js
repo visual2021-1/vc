@@ -1,15 +1,14 @@
 let mosaico;
-let symbol1;
-let bigPicture;
+let mosaicDatasetImg;
+let originalImage;
 let showMosaico;
 let imagesMainPath = "/vc/docs/sketches/assets/image_mosaic/";
-let resolution = 100;
-const pixelSize = 64;
+let imgsPerRow = 100;
 const numImagenes = 70;
 
 function preload() {
-  bigPicture = loadImage(imagesMainPath + "art-shaders.jpg");
-  symbol1 = loadImage(imagesMainPath + "mosaicDataset.jpg");
+  originalImage = loadImage(imagesMainPath + "art-shaders.jpg");
+  mosaicDatasetImg = loadImage(imagesMainPath + "mosaicDataset.jpg");
   mosaico = loadShader(
     "/vc/docs/sketches/scripts/hardware/shader.vert",
     "/vc/docs/sketches/scripts/hardware/photomosaic.frag"
@@ -24,7 +23,7 @@ function setup() {
 function setupSelect(){
   sel = createSelect();
   sel.position(15, 15);
-  sel.option(5);
+  sel.option(10);
   sel.option(50);
   sel.option(100);
   sel.option(150);
@@ -36,28 +35,26 @@ function setupSelect(){
   sel.option(1000000);
   sel.option(10000000);
   sel.option(100000000);
-  sel.selected(resolution);
+  sel.selected(imgsPerRow);
   sel.changed(mySelectEvent);
 }
 
 function mySelectEvent() {
-  resolution = sel.value();
-  mosaico.setUniform("resolution", resolution);
+  imgsPerRow = sel.value();
+  mosaico.setUniform("imgsPerRow", imgsPerRow);
 }
 
 function setupMosaic() {
-  createCanvas(500, 670, WEBGL);
+  createCanvas(718, 900, WEBGL);
   textureMode(NORMAL);
   noStroke();
   shader(mosaico);
-  mosaico.setUniform("image", bigPicture);
-  mosaico.setUniform("resolution", resolution);
-  mosaico.setUniform("WIDTH_PIXEL", pixelSize);
-  mosaico.setUniform("NUM_IMAGES", numImagenes);
-  mosaico.setUniform("HEIGHT_PIXEL", pixelSize);
+  mosaico.setUniform("originalImage", originalImage);
+  mosaico.setUniform("imgsPerRow", imgsPerRow);
+  mosaico.setUniform("numImagenes", numImagenes);
   showMosaico = true;
-  mosaico.setUniform("debug", showMosaico);
-  mosaico.setUniform("symbol1", symbol1);
+  mosaico.setUniform("showMosaico", showMosaico);
+  mosaico.setUniform("mosaicDatasetImg", mosaicDatasetImg);
 }
 
 function draw() {
@@ -77,7 +74,7 @@ function cover() {
 function keyPressed() {
   if (key === "1") {
     showMosaico = !showMosaico;
-    mosaico.setUniform("debug", showMosaico);
+    mosaico.setUniform("showMosaico", showMosaico);
 
     if (showMosaico) {
       setupSelect();

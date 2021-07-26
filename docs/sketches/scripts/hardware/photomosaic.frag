@@ -1,39 +1,32 @@
 precision mediump float;
-uniform sampler2D image;
-uniform sampler2D symbol1;
-uniform bool debug;
-uniform float resolution;
-uniform float NUM_IMAGES;
-uniform float WIDTH_PIXEL;
-uniform float HEIGHT_PIXEL;
+uniform sampler2D originalImage;
+uniform sampler2D mosaicDatasetImg;
+uniform bool showMosaico;
+uniform float imgsPerRow;
+uniform float numImagenes;
 
 // interpolated texcoord (same name and type as in vertex shader)
 varying vec2 vTexCoord;
 varying vec4 vVertexColor;
 
-float module( float x , float y ){
-    float flt_res = x-(y*(floor(x/y)));
-    return flt_res;
-}
-
 void main() {
-    vec2 symbolCoord=vTexCoord*resolution;
-    vec2 imageCoord=floor(symbolCoord);
-    symbolCoord=symbolCoord-imageCoord;
-    imageCoord=imageCoord*vec2(1.0)/vec2(resolution);
-    vec4 col=texture2D(image,imageCoord);
-    float brightness = dot(col.xyz, vec3(0.35, 0.35, 0.35));
+    vec2 mosaicDatasetImgCoord = vTexCoord*imgsPerRow;
+    vec2 originalImageCoord = floor(mosaicDatasetImgCoord);
+    mosaicDatasetImgCoord = mosaicDatasetImgCoord-originalImageCoord;
+    originalImageCoord = originalImageCoord*vec2(1.0)/vec2(imgsPerRow);
+    vec4 col = texture2D(originalImage,originalImageCoord);
+    float brightnessValue  =  dot(col.xyz, vec3(0.35, 0.35, 0.35));
     
-    float temp=brightness*(NUM_IMAGES);
-    float level=floor(temp);
+    float temp = brightnessValue*(numImagenes);
+    float level = floor(temp);
     
-    float scalingfactor = 1.0/NUM_IMAGES;
+    float scalingfactor  =  1.0/numImagenes;
 
-    float y0=0.0;
-    float x0= module(level,NUM_IMAGES)*scalingfactor;
+    float y0 = 0.0;
+    float x0 = (level-(numImagenes*(floor(level/numImagenes))))*scalingfactor;
 
-    vec2 myCoord=(symbolCoord*vec2(1.0)/vec2(NUM_IMAGES,1))+vec2(x0,y0);
-    vec4 finalColor=texture2D(symbol1,myCoord);
+    vec2 finalCord = (mosaicDatasetImgCoord*vec2(1.0)/vec2(numImagenes,1))+vec2(x0,y0);
+    vec4 finalColor = texture2D(mosaicDatasetImg,finalCord);
 
-    gl_FragColor = debug?finalColor:col;
+    gl_FragColor  =  showMosaico?finalColor:col;
 }

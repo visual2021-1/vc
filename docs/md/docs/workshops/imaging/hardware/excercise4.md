@@ -6,7 +6,7 @@ Creación de un foto-mosaico de una imagen determinada a partir de una lista de 
 
 ## Background
 
-En el campo de las imágenes y la fotografía, un fotomosaico es una imagen usualmente una fotografía que ha sido dividida en secciones rectangulares (usualmente del mismo tamaño), tal como es compuesto un mosaico tradicional, con la característica de que cada elemento del mosaico es reemplazado por otra fotografía con colores promedios apropiados al elemento de la imagen original. Cuando es vista en detalle, los píxeles individuales se ven como la imagen principal, sin embargo al verla como un todo, es posible apreciar que la imagen está compuesta por cientos de miles de imágenes.
+En el campo de las imágenes y la fotografía, un fotomosaico es una imagen usualmente una fotografía que ha sido dividida en secciones rectangulares (usualmente del mismo tamaño), tal como es compuesto un mosaico tradicional, con la característica de que cada elemento del mosaico es reemplazado por otra fotografía con colores promedios apropiados al elemento de la imagen original. Cuando es vista en detalle, los píxeles individuales se ven como la imagen principal, sin embargo al verla como un todo, es posible apreciar que la imagen está compuesta por cientos de miles o incluso millones de imágenes.
 
 ### Foto-mosaico
 
@@ -17,20 +17,19 @@ En el campo de las imágenes y la fotografía, un fotomosaico es una imagen usua
 <b>*NOTA: </b> la resolucion de la imagen, que se refiere al numero de imagenes por fila que conforman el mosaico, puede ser modificada con el selector en la esquina superior izquierda
 
 > :Tabs
-> >:Tab title= Código
+> >:Tab title= Código P5.js
 > > ```js
 > > let mosaico;
-> > let symbol1;
-> > let bigPicture;
+> > let mosaicDatasetImg;
+> > let originalImage;
 > > let showMosaico;
 > > let imagesMainPath = "/vc/docs/sketches/assets/image_mosaic/";
-> > let resolution = 100;
-> > const pixelSize = 64;
+> > let imgsPerRow = 100;
 > > const numImagenes = 70;
 > > 
 > > function preload() {
-> >   bigPicture = loadImage(imagesMainPath + "art-shaders.jpg");
-> >   symbol1 = loadImage(imagesMainPath + "mosaicDataset.jpg");
+> >   originalImage = loadImage(imagesMainPath + "art-shaders.jpg");
+> >   mosaicDatasetImg = loadImage(imagesMainPath + "mosaicDataset.jpg");
 > >   mosaico = loadShader(
 > >     "/vc/docs/sketches/scripts/hardware/shader.vert",
 > >     "/vc/docs/sketches/scripts/hardware/photomosaic.frag"
@@ -45,7 +44,7 @@ En el campo de las imágenes y la fotografía, un fotomosaico es una imagen usua
 > > function setupSelect(){
 > >   sel = createSelect();
 > >   sel.position(15, 15);
-> >   sel.option(5);
+> >   sel.option(10);
 > >   sel.option(50);
 > >   sel.option(100);
 > >   sel.option(150);
@@ -57,28 +56,26 @@ En el campo de las imágenes y la fotografía, un fotomosaico es una imagen usua
 > >   sel.option(1000000);
 > >   sel.option(10000000);
 > >   sel.option(100000000);
-> >   sel.selected(resolution);
+> >   sel.selected(imgsPerRow);
 > >   sel.changed(mySelectEvent);
 > > }
 > > 
 > > function mySelectEvent() {
-> >   resolution = sel.value();
-> >   mosaico.setUniform("resolution", resolution);
+> >   imgsPerRow = sel.value();
+> >   mosaico.setUniform("imgsPerRow", imgsPerRow);
 > > }
 > > 
 > > function setupMosaic() {
-> >   createCanvas(500, 670, WEBGL);
+> >   createCanvas(718, 900, WEBGL);
 > >   textureMode(NORMAL);
 > >   noStroke();
 > >   shader(mosaico);
-> >   mosaico.setUniform("image", bigPicture);
-> >   mosaico.setUniform("resolution", resolution);
-> >   mosaico.setUniform("WIDTH_PIXEL", pixelSize);
-> >   mosaico.setUniform("NUM_IMAGES", numImagenes);
-> >   mosaico.setUniform("HEIGHT_PIXEL", pixelSize);
+> >   mosaico.setUniform("originalImage", originalImage);
+> >   mosaico.setUniform("imgsPerRow", imgsPerRow);
+> >   mosaico.setUniform("numImagenes", numImagenes);
 > >   showMosaico = true;
-> >   mosaico.setUniform("debug", showMosaico);
-> >   mosaico.setUniform("symbol1", symbol1);
+> >   mosaico.setUniform("showMosaico", showMosaico);
+> >   mosaico.setUniform("mosaicDatasetImg", mosaicDatasetImg);
 > > }
 > > 
 > > function draw() {
@@ -98,7 +95,7 @@ En el campo de las imágenes y la fotografía, un fotomosaico es una imagen usua
 > > function keyPressed() {
 > >   if (key === "1") {
 > >     showMosaico = !showMosaico;
-> >     mosaico.setUniform("debug", showMosaico);
+> >     mosaico.setUniform("showMosaico", showMosaico);
 > > 
 > >     if (showMosaico) {
 > >       setupSelect();
@@ -107,10 +104,46 @@ En el campo de las imágenes y la fotografía, un fotomosaico es una imagen usua
 > >     }
 > >   }
 > > }
-> > ``` 
+> > ```
+>
+> >:Tab title= Código Fragment Shader
+> > ```glsl
+> > precision mediump float;
+> > uniform sampler2D originalImage;
+> > uniform sampler2D mosaicDatasetImg;
+> > uniform bool showMosaico;
+> > uniform float imgsPerRow;
+> > uniform float numImagenes;
+> > 
+> > // interpolated texcoord (same name and type as in vertex shader)
+> > varying vec2 vTexCoord;
+> > varying vec4 vVertexColor;
+> > 
+> > void main() {
+> >     vec2 mosaicDatasetImgCoord = vTexCoord*imgsPerRow;
+> >     vec2 originalImageCoord = floor(mosaicDatasetImgCoord);
+> >     mosaicDatasetImgCoord = mosaicDatasetImgCoord-originalImageCoord;
+> >     originalImageCoord = originalImageCoord*vec2(1.0)/vec2(imgsPerRow);
+> >     vec4 col = texture2D(originalImage,originalImageCoord);
+> >     float brightnessValue  =  dot(col.xyz, vec3(0.35, 0.35, 0.35));
+> >     
+> >     float temp = brightnessValue*(numImagenes);
+> >     float level = floor(temp);
+> >     
+> >     float scalingfactor  =  1.0/numImagenes;
+> > 
+> >     float y0 = 0.0;
+> >     float x0 = (level-(numImagenes*(floor(level/numImagenes))))*scalingfactor;
+> > 
+> >     vec2 finalCord = (mosaicDatasetImgCoord*vec2(1.0)/vec2(numImagenes,1))+vec2(x0,y0);
+> >     vec4 finalColor = texture2D(mosaicDatasetImg,finalCord);
+> > 
+> >     gl_FragColor  =  showMosaico?finalColor:col;
+> > }
+> > ```
 >
 > >:Tab title= Resultado
-> > > :P5 sketch=/docs/sketches/scripts/hardware/photomosaic.js width=500, height=670
+> > > :P5 sketch=/docs/sketches/scripts/hardware/photomosaic.js width=718, height=900
 
 ## Conclusions & Future Work
 
