@@ -31,7 +31,8 @@ function draw() {
         quadrille.fill(i, j, chars[value]);
       }
     }
-    drawQuadrille(quadrille, 0, 0, 40 / scl, 1.6 / scl, color(255));
+    drawQuadrille(board, 0, 0, LENGTH, 2, 'blue', true); 
+    drawQuadrille(quadrille, 0, 0, 40 / scl, 1.6 / scl, color(25));
     const start = new Date().getTime();
     let elapsed = new Date().getTime() - start;
     console.log("Elapsed time " + elapsed);
