@@ -16,6 +16,7 @@
 > > >[Exercise 1](/docs/workshops/imaging/hardware/excercise1)
 > > >[Exercise 2](/docs/workshops/imaging/hardware/excercise2)
 > > >[Exercise 3](/docs/workshops/imaging/hardware/excercise3)
+> > >[Ejercicio 4](/docs/workshops/imaging/hardware/excercise4)
 >
 > > :Collapse label=Rendering
 > >
