@@ -5,7 +5,13 @@
 Es un medio artístico que utiliza recursos computarizados fundamentados en los caracteres de definidos por el ASCII es un conjunto de 95 caracteres basado en el alfabeto latino. 
 
 ## Planteamiento del problema
-Crear una imagen compuesta únicamente por caracteres ASCII que simule la imagen original.
+
+En la implementación realizada basada en el . <a href="https://www.shadertoy.com/view/lssGDj?ref=dtf.ru">codigo de shadowrtoy</a> 
+del shader se particiona la imagen en bloques de 8x8 pixeles y se procede a hacer el cálculo del LUMA para cada uno de ellos. Posteriormente, teniendo el cuanta el LUMA obtenido en cada bloque se determina que caracter ASCII se debe usar de acuerdo a la codificación realizada previamente de algunos caracteres ASCII. Posterior mente, el shader hace un barrido bloque a bloque y de acuerdo si es un bloque con brillo 1 es reemplazado por el caracter asignado, si el brillo de este bloque es 0, se deja el espacio.
+
+A medida que el sombreador itera píxel por píxel, enviamos la coordenada (x, y), el bloque y el número que codifica el carácter del bloque a una función que comprueba si la posición del píxel está codificada como 1 en el número de carácter y devuelve el valor correspondiente para que la textura esperada se cree píxel a píxel en el vector gl_FragColor. El resultado del sombreador de fragmentos se usa luego como una textura de un plano 2D, generando así el resultado deseado.
+
+Si bien, esta herramienta de mapeo de los caracteres facilita el proceso de la implementación del Ascii Art, limita el uso de caracteres a los que sean representables en la matriz de 5 x 5, es decir que caracteres de otros lenguajes que utilicen caracteres curvos o figuras abstractas no podrían ser utilizados en esta implementación.
 
 ## Antecedentes
 
@@ -22,9 +28,6 @@ La proliferación a finales de los años 1970 y principios de los 1980 de las BB
 
 Aunque en la década previa al computador personal de escritorio, algunos artistas lo utilizaban de manera experimental y como medio alternativo de arte gráfico, utilizando tarjetas perforadas de 80 y 96 columnas, así como diversos programas compiladores o utilitarios (COBOL, RPG, IBM DITTO), combinado a impresoras de matriciales de alta velocidad para fines de presentación.<br>
 
-  <center><img src="https://i.blogs.es/65659d/mrbean/1366_2000.jpg"  width=250/></center>
-
-
 Aquella práctica se hizo vital para todos esos escenarios en los que la transmisión de imágenes no era posible, e incluía por ejemplo a las citadas máquinas de escribir, pero también a terminales de ordenador en modo texto o las citadas BBSes.<br>
 
 Su mayor aplicación se concentra en la operación de equipos computarizados y de comunicación para representar caracteres de texto o identificar dispositivos de control computarizado que trabajan exclusivamente con texto y no tienen capacidad de procesamiento de imágenes.<br>
@@ -35,161 +38,136 @@ Desde el punto de vista de evolución de la gráfica computarizada, el Arte ASCI
 
 ## Codigo & resultados 
 
-### Conversión de imagen a texto
-Un método consiste en muestrear la imagen en escala de grises con una precisión de menos de 8 bits y luego asignar un carácter para cada valor.<br>
-Estos generadores de arte ASCII a menudo permiten a los usuarios elegir la intensidad y el contraste de la imagen generada.<br>
-
-Tres factores limitan la fidelidad de la conversión, especialmente de fotografías:<br>
-<ul>
-  <li>Profundidad (soluciones: espaciado de línea reducido; estilo en negrita; elementos de bloque; fondo de color; buen sombreado ) </li>
-  <li>Nitidez (soluciones: un texto más largo, con una fuente más pequeña; un mayor conjunto de caracteres; fuentes de ancho variable )  </li>
-  <li>Ratio (soluciones con problemas de compatibilidad: fuente con cuadrícula cuadrada; estilizada sin interlineado adicional ).</li>
-</ul>
-
-
-### Libreria p5.quadrille.js
-
-En geometría, el mosaico cuadrado o la cuadrícula cuadrada es un mosaico regular del plano euclidiano. John Horton Conway lo llamó cuadrilla.<br>
-
-El ángulo interno del cuadrado es π/2, por lo que cuatro cuadrados en un punto forman un ángulo completo de 2π. Es uno de los tres mosaicos regulares del plano. Los otros dos son el Teselado triangular  y Teselado hexagonal .<br>
-
-La biblioteca comprende una Quadrille class y proporciona las funciones createQuadrille y drawQuadrille p5. La Quadrille class implementa la transformación geométrica y los operadores lógicos constructivos de geometría sólida. También implementa varios métodos de administración de memoria, como borrar , clonar , llenar , insertar y reemplazar. Se puede utilizar como una interfaz para convertir hacia/desde otras representaciones como matrices , imágenes y bitboards.<br>
-
-<b>createQuadrille() </b>
-
-Crea un quadrille que puede llenarse con cualquier combinación de ceros (para celdas vacías), en este caso integrariamos una imagen de instancia p5.Image 
-
-```md
-
-quadrille = createQuadrille(20 * scl, img);
-
-```
-<b>drawQuadrille() </b>
-
-Y la uncion que dibuja a quadrille 
-
-```md
-
-drawQuadrille(quadrille, 0, 0, 40 / scl, 1.6 / scl, color(255));
-
-```
-
-Por lo tanto obtenemos la siguiente imagen. 
- 
-
-<center><img src="/docs/sketches/assets/Quadrille.PNG"  width=550/></center>
-
-### Uso de los distintos caracteres ASCII
-
-Una vez obtenido la division de pixeles procedemos a realizar la caracterizacion de 
-<blockquote>
-<ul>
-<li><b>!</b> este carácter es muy delgado en algunas tipografías y muy grueso en otras.</li><br>
-<li><b># $ % 8 @ C D H M N S W X Y </b> un excelente relleno para sólido</li><br>
-<li><b>&</b>no se usa mucho debido a su forma problemática.</li><br>
-<li><b>'</b> usado en todos los estilos </li><br>
-<li><b>( ) -" </b> Su grosor varía un poco dependiendo de la fuente.</li><br>
-<li><b>* </b> el tamaño y posición de este carácter varía mucho, por lo que no suele ser un buen relleno.</li><br>
-<li><b>+ </b>  único carácter mediano que no alcanza la base de la línea.</li><br>
-<li><b>, </b> usado en todos los estilos, a veces es más alto que el punto, a veces no.</li><br>
-<li><b>- . </b> usado en todos los estilos</li><br>
-<li><b>/ </b> la inclinación varía (especialmente entre DOS y Windows)</li><br>
-<li><b>0 1 2 3 4 5 B E F G Q R Z g i z</b> no se usa con frecuencia.</li><br>
-<li><b>6 7 9 </b> útil para escala de grises.</li><br>
-<li><b>: ;</b> útil para bordes en sólido.</li><br>
-<li><b>< = > ? O T U r t u a v x</b> se usa sobre todo en lineal.</li><br>
-<li><b>A </b> útil para ángulos</li><br>
-<li><b>I J K L </b> se usa para ángulos, y a veces para líneas verticales.</li><br>
-<li><b>P a b c a d e h l m n o p s w </b> arácter de antialiasing sólido muy común.</li><br>
-<li><b>V </b> se usa para conectar dos líneas diagonales, no se ve bien en todas las tipografías.</li><br>
-<li><b>f </b> a veces se usa para líneas verticales inclinadas.</li><br>
-<li><b>j k </b> útil para líneas verticales inclinadas en algunos estilos.</li><br>
-
-</ul>
-</blockquote>
-
-Se presenta una grafica que representa el equilibrio de los pixeles y la densidad de los mismos
-
-<center><img src="http://sol.gfxile.net/textfx/balancepic_asc_dyn.png"  width=550/></center>
-
-Aunque existe un mapa de caracteres estándares para imágenes en escala de grises, negro -> blanco.
-<blockquote>
-   "$ @ B% 8 & WM # * oahkbdpqwmZO0QLCJUYXzcvunxrjft / \ | () 1 {} []? -_ + ~ <> i! LI;:," ^ `'. " 
-</blockquote>
-
-### Función que convierte el pixel a un ASCII definido
-
-Por lo tanto, de acuerdo a lo anterior se definio una lista de 67 caracteres que definirar el tono de gris para el ASCII art<br>
-
-```md
- var chars = ["$", "@", "B", "%", "8", "&", "W", "M", "#", "*", 
-             "o", "a", "h", "k", "b", "d", "p", "q", "w","m",
-             "Z", "O", "0", "Q", "L", "C", "J", "U", "Y", "X", 
-             "z", "c", "v", "u", "n", "x", "r", "j", "f", "t", 
-             "/", "|", "(", ")", "1", "{", "}", "[", "]", "?",
-             "-", "_", "+", "~", "<", ">", "i", "!", "l", "I", 
-             ";", ":", ",", "^", "`", "'", "." ];
-```
-
-La funcion que convierte los pixeles en un caracter se encuentra definida de la sigiente manera <br>
-
-```md
-  for( let i =0; i < quadrille.height; i++)
-    {
-      for( let j =0; j < quadrille.width; j++){
-        let value = (quadrille.read(i, j)[0] + quadrille.read(i, j)[1] + quadrille.read(i, j)[2]) / 3;
-        value = Math.floor(value / 4);    
-        quadrille.fill(i, j, chars[value]);
-      }
-    }
-```
-
-En donde se convierte usando la media aritmética la imagen a escala de grises, y luego se divide por 4 para que pueda ser reemplazado por un caracter del arreglo previamente definido.  <br>
-
 ### Resultados
 
-> :P5 sketch=/docs/sketches/scripts/asciiArt.js width=720, height=560, lib1=https://cdn.jsdelivr.net/gh/objetos/p5.quadrille.js/p5.quadrille.js
 
-El codigo completo se ve representado de la siguiente manera<br>
+> :Tabs
+> > :Tab title=Ascii Art Video
+> > 
+> > > :P5 sketch=/docs/sketches/scripts/hardware/asciiArtVideo.js width=720, height=560, lib1=https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js
+>
+> > :Tab title= Prueba con tu propia camara 
+> > 
+> > > :P5 sketch=/docs/sketches/scripts/hardware/asciiArtShader.js width=720, height=560, lib1=https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js
+> > :Tab title=P5 Code
+> >
+> > 
+> > ```js | Ascii art hardware
+> > let aShader;
+> > 
+> > 
+> > //Precarga el shader y el video
+> > function preload() {
+> >   video = createVideo(['/vc/docs/sketches/assets/oso.mp4']);
+> >     aShader = loadShader('/vc/docs/sketches/scripts/hardware/textureAscii.vert', '/vc/docs/sketches/scripts/hardware/textureAscii.frag');
+> >   asciiShader = loadShader('/vc/docs/sketches/ascii.vert', '/vc/docs/sketches/ascii.frag');
+> >   video.hide();
+> > }
+> > 
+> > function setup() {
+> >   // shaders require WEBGL mode to work
+> >   createCanvas(768, 520, WEBGL);
+> >   noStroke();
+> >   video.loop();
+> > 
+> > }
+> > 
+> > function draw() {
+> >   // shader() Activación del Shader con nuestro Shader
+> >   shader(aShader);
+> >   // Se pasa el video como textura
+> >   aShader.setUniform('tex', video);
+> >   // rect gives us some geometry on the screen
+> >  rect(0, 0, width, height);
+> > }
+> > 
+> > ```
+>
+> > :Tab title= Vertex Shader Code
+> >
+> > 
+> > ```glsl | ascii.vert
+> > #ifdef GL_ES
+> > precision mediump float;
+> > #endif
+> > 
+> > attribute vec3 aPosition;
+> > attribute vec2 aTexCoord;
+> > 
+> > varying vec2 vTexCoord;
+> > 
+> > void main() {
+> >   vTexCoord = aTexCoord;
+> > 
+> >   vec4 positionVec4 = vec4(aPosition, 1.0);
+> >   positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
+> > 
+> >   gl_Position = positionVec4;
+> > }
+> > ```
+>
+> > :Tab title=Fragment Shader Code
+> >
+> > 
+> > ```glsl | ascii.frag
+> > #ifdef GL_ES
+> > precision mediump float;
+> > #endif
+> > 
+> > uniform sampler2D tex;
+> > 
+> > int getBit(int n, int a) {
+> >   float value = float(n);
+> >   for(float i = 27.0; i >= 0.0; i -= 1.0) {
+> >     float val = pow(2.0,i*1.0);
+> >     
+> >     if (val <= value) {
+> >       value -= val;
+> >       if(i == float(a)) return 1;
+> >     }
+> >   }
+> >   return 0;
+> > }
+> > 
+> > float character(int n, vec2 p)
+> > {
+> > 	p = floor(p*vec2(4.0, -4.0) + 2.5);
+> >     if (clamp(p.x, 0.0, 4.0) == p.x)
+> > 	{
+> >         if (clamp(p.y, 0.0, 4.0) == p.y)	
+> > 		{
+> >         	int a = int(floor(p.x+0.5) + 5.0 * floor(p.y+0.5));
+> > 			if (getBit(n,a) == 1) return 1.0;
+> > 		}	
+> >     }
+> > 	return 0.0;
+> > }
+> > 
+> > void main() {
+> >   vec2 pix = gl_FragCoord.xy;
+> >   pix.y = 393.0*2.0 - pix.y;
+> >   vec2 resol = vec2(393.0*2.0, 393.0*2.0);
+> > 	vec3 col = texture2D(tex, floor(pix/8.0)*8.0/resol).rgb;	
+> > 	
+> > 	float gray = 0.3 * col.r + 0.59 * col.g + 0.11 * col.b;
+> > 	
+> > 	int n =  4096;                // .
+> > 	if (gray > 0.2) n = 65600;    // :
+> > 	if (gray > 0.3) n = 332772;   // *
+> > 	if (gray > 0.4) n = 15255086; // o 
+> > 	if (gray > 0.5) n = 23385164; // &
+> > 	if (gray > 0.6) n = 15252014; // 8
+> > 	if (gray > 0.7) n = 13199452; // @
+> > 	if (gray > 0.8) n = 11512810; // #
+> > 	
+> > 	vec2 p = mod(pix/4.0, 2.0) - vec2(1.0);
+> >     
+> > 	col = vec3(character(n, p));
+> > 
+> > 	gl_FragColor = vec4(col, 1.0);
+> > }
+> > ```
 
-```md
-var quadrille;
-var img;
-var chars = ["$", "@", "B", "%", "8", "&", "W", "M", "#", "*", 
-             "o", "a", "h", "k", "b", "d", "p", "q", "w","m",
-             "Z", "O", "0", "Q", "L", "C", "J", "U", "Y", "X", 
-             "z", "c", "v", "u", "n", "x", "r", "j", "f", "t", 
-             "/", "|", "(", ")", "1", "{", "}", "[", "]", "?",
-             "-", "_", "+", "~", "<", ">", "i", "!", "l", "I", 
-             ";", ":", ",", "^", "`", "'", "." ];
-
-function preload() {
-  img = loadImage('/vc/docs/sketches/assets/cat.jpg');
-}
-
-function setup() {
-  createCanvas(770, 550);
-}
-
-function draw() {
-  image(img, 0, height / 2, img.width /2, img.height / 2);
-  
-  if (frameCount % 200 === 0) {
-    let scl = 5;
-    quadrille = createQuadrille(20 * scl, img);
-   
-    for( let i =0; i < quadrille.height; i++)
-    {
-      for( let j =0; j < quadrille.width; j++){
-        let value = (quadrille.read(i, j)[0] + quadrille.read(i, j)[1] + quadrille.read(i, j)[2]) / 3;
-        value = Math.floor(value / 4);    
-        quadrille.fill(i, j, chars[value]);
-      }
-    }
-    drawQuadrille(quadrille, 0, 0, 40 / scl, 1.6 / scl, color(255));
-  }
-}
-```
 
 
 ## Conclusiones & trabajo futuro
