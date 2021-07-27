@@ -46,11 +46,13 @@ Desde el punto de vista de evolución de la gráfica computarizada, el Arte ASCI
 > > 
 > > > :P5 sketch=/docs/sketches/scripts/hardware/asciiArtVideo.js width=720, height=560, lib1=https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js
 >
-> > :Tab title= Prueba con tu propia camara 
+> > :Tab title= Camara 
 > > 
 > > > :P5 sketch=/docs/sketches/scripts/hardware/asciiArtShader.js width=720, height=560, lib1=https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js
-> > :Tab title=P5 Code
+> > 
 > >
+>
+> > :Tab title= Ascii Art
 > > 
 > > ```js | Ascii art hardware
 > > let aShader;
