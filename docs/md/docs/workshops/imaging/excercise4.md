@@ -193,5 +193,4 @@ Finalmente se definen las funciones para el listener del selector de alto y anch
         Media Images: https://editor.p5js.org/jnsjknn/sketches/HJU0bQ_fN</li>
 </ul>
 </blockquote>
-
 > :ToCPrevNext
