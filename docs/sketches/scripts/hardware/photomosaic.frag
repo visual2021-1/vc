@@ -20,7 +20,7 @@ void main() {
     float temp = brightnessValue*(numImagenes);
     float level = floor(temp);
     
-    float scalingfactor  =  1.0/numImagenes;
+    float scalingfactor = 1.0/numImagenes;
 
     float y0 = 0.0;
     float x0 = (level-(numImagenes*(floor(level/numImagenes))))*scalingfactor;

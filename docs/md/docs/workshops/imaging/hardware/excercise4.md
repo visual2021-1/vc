@@ -8,7 +8,26 @@ Creación de un foto-mosaico de una imagen determinada a partir de una lista de 
 
 En el campo de las imágenes y la fotografía, un fotomosaico es una imagen usualmente una fotografía que ha sido dividida en secciones rectangulares (usualmente del mismo tamaño), tal como es compuesto un mosaico tradicional, con la característica de que cada elemento del mosaico es reemplazado por otra fotografía con colores promedios apropiados al elemento de la imagen original. Cuando es vista en detalle, los píxeles individuales se ven como la imagen principal, sin embargo al verla como un todo, es posible apreciar que la imagen está compuesta por cientos de miles o incluso millones de imágenes.
 
-### Foto-mosaico
+Para la realizacion de este algoritmo de computacion visual se hizo uso de shaders desarrollados en GLSL el cual es un lenguaje de alto nivel de shader con una sintaxis basada en el lenguaje de programación C y diseñado específicamente para su uso dentro del entorno de OpenGL.
+
+El algoritmo parte de un dataset de imagenes concatenadas de manera horizontal en un solo archivo .JPG ordenadas por su nivel de brillo percibido el cual fue calculado utilizando la libreria ``` pillow  ``` en python.
+
+```python
+from PIL import Image
+from PIL import ImageStat
+import math
+
+def brightness( im_file ):
+   im = Image.open(im_file)
+   stat = ImageStat.Stat(im)
+   r,g,b = stat.rms
+   return math.sqrt(0.241*(r**2) + 0.691*(g**2) + 0.068*(b**2))
+```
+
+Posteriormente la imagen original se recrea apartir de texturas 2D cuadradas de un color plano dependiendo del valor de la resolucion, el cual puede ser modificado interactivamente (ej. si la resolucion tiene un valor de 50 la imagen se divide en filas de 50 texturas 2D cuadradas). 
+
+Luego, se realiza el calculo del brillo de dichas texturas 2D y se encuentra la posicion aproximada dentro del dataset concatenado de las imagenes que conformarán el mosaico correspondiendo con dicho nivel de brillo para extraer la imagen especifica que ira ubicada en esa seccion del mosaico. Este proceso se repite con todos los cuadrados generados previamente hasta construir la imagen completa. 
+### Code (solution) & results
 
 <ul>
   <li><b>Presione 1 </b>para intercalar entre la imagen original y el mosaico generado</li>
@@ -148,8 +167,8 @@ En el campo de las imágenes y la fotografía, un fotomosaico es una imagen usua
 ## Conclusions & Future Work
 
 <ul>
-  <li>La producción de un Foto-mosaico es una tarea ardua y que puede solucionarse facil y eficientemente mediante algoritmos computacionales</li>
+  <li>Se nota una clara y enorme mejora en el tiempo de procesamiento para el calculo general del mosaico con la utilizacion de shaders en contraste con el codigo realizado unicamente con P5.js pasando de un tiempo de aproximadamente 5 segundos para la construccion de un mosaico de 60x40 imagenes a un tiempo menor a 0.5 segundos para la construccion de un mosaico de 100 millones x 100 millones de imagenes.</li>
   <li>A medida de que se aumenta el tamaño de cada imagen del mosaico se puede apreciar mejor cada una de estas imagenes pero el resultado final al observar la imagen general en forma de mosaico se obtiene un resultado final menos homomgeneo (caotico) e incluso se la imagen inicial puede ser practicamente irreconocible</li>
-  <li>Al momento de escoger la lista de imagenes con las cuales se va a crear el mosaico es importante tener un dataset amplio y variado ya que de esto depende el resultado a nivel general del mosaico final</li>
+  <li>Al momento de escoger la lista de imagenes con las cuales se va a crear el mosaico es importante tener un dataset amplio y variado ya que de esto depende el resultadodel mosaico final</li>
   <li>A mayor numero de imagenes para generar el mosaico se reduce la posibilidad de tener imagenes repetidas en el mosaico final</li>
 </ul>
